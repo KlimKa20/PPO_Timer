@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">PPO_Timer</string>
+    <string name="app_name">lab2 Timer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="number_list">Список чисел</string>
+    <string name="empty">Нет данных</string>
 </resources>
