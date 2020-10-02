@@ -1,4 +1,4 @@
-package by.bsuir.ppo_timer;
+package by.bsuir.ppo_timer.ViewModel;
 
 import android.app.Application;
 import android.content.ContentValues;
@@ -10,19 +10,22 @@ import androidx.lifecycle.AndroidViewModel;
 
 import java.util.List;
 
-public class WorkoutViewModel extends AndroidViewModel {
+import by.bsuir.ppo_timer.DBHelper;
+import by.bsuir.ppo_timer.Model.Workout;
 
-    DBHelper dbHelper;
+public class DBViewModel extends AndroidViewModel {
 
-    public WorkoutViewModel(@NonNull Application application) {
+    private DBHelper dbHelper;
+
+    public DBViewModel(@NonNull Application application) {
         super(application);
         dbHelper = new DBHelper(getApplication());
     }
 
-    public void AddFieldToDataBase(String Name, int TimeOfPreparation,
-                                   int TimeOfWork, int TimeOfRest,
-                                   int CountOfCycles, int CountOfSets,
-                                   int TimeOfRestBetweenSet, int TimeOfFinalRest) {
+    public void AddFieldToDataBase(String Name, String TimeOfPreparation,
+                                   String TimeOfWork, String TimeOfRest,
+                                   String CountOfCycles, String CountOfSets,
+                                   String TimeOfRestBetweenSet, String TimeOfFinalRest) {
         ContentValues cv = new ContentValues();
         // подключаемся к БД
         SQLiteDatabase db = dbHelper.getWritableDatabase();

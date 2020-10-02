@@ -1,4 +1,4 @@
-package by.bsuir.ppo_timer;
+package by.bsuir.ppo_timer.Model;
 
 public class Workout {
     private String Name;

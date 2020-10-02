@@ -19,7 +19,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/NewWorkout"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/oval_button"

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import by.bsuir.ppo_timer.Model.Workout;
+
 public class WorkoutAdapter extends ArrayAdapter<Workout> {
 
     private LayoutInflater inflater;

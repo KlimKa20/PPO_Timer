@@ -4,4 +4,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="number_list">Список чисел</string>
     <string name="empty">Нет данных</string>
+    <string name="Preparation">Подготовка</string>
+    <string name="PreparationTextView">10</string>
+    <string name="Name">Название</string>
+    <string name="NameTextView">Введите имя</string>
+    <string name="Work">Работа</string>
+    <string name="WorkTextView">20</string>
+    <string name="Rest">Отдых</string>
+    <string name="RestTextView">20</string>
+    <string name="Cycle">Циклы(работа и отдых)</string>
+    <string name="CycleTextView">1</string>
+    <string name="Set">Сеты(повторить всё)</string>
+    <string name="SetTextView">1</string>
+    <string name="TimeOfRestBetweenSet">Отдых мжду сетами</string>
+    <string name="TimeOfRestBetweenSetTextView">0</string>
+    <string name="TimeOfFinalRest">Успокоиться</string>
+    <string name="TimeOfFinalRestTextView">0</string>
 </resources>
