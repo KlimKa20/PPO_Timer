@@ -10,14 +10,6 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "myDB", null, 1);
     }
 
-    private String Name;
-    private int TimeOfPreparation;
-    private int TimeOfWork;
-    private int TimeOfRest;
-    private int CountOfCycles;
-    private int CountOfSets;
-    private int TimeOfRestBetweenSet;
-    private int TimeOfFinalRest;
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table workout ("

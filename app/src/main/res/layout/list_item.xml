@@ -25,7 +25,8 @@
             android:id="@+id/buttonEdit"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_menu_info_details" />
+            android:background="@android:drawable/ic_menu_info_details"
+            android:onClick="onClick" />
     </LinearLayout>
 
     <TextView

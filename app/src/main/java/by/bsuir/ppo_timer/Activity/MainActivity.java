@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DBViewModel mViewModel;
     List<Workout> workouts = new ArrayList<>();
     ListView workoutList;
+    WorkoutAdapter workoutAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
-        ((Button)findViewById(R.id.NewWorkout)).setOnClickListener(this);
+        workoutList = (ListView) findViewById(R.id.Workoutlist);
+        ((Button) findViewById(R.id.NewWorkout)).setOnClickListener(this);
     }
 
     @Override
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         mViewModel.ReadFieldsFromDataBase(workouts);
-        workoutList = (ListView) findViewById(R.id.Workoutlist);
-        WorkoutAdapter workoutAdapter = new WorkoutAdapter(this, R.layout.list_item, workouts);
+        workoutAdapter = new WorkoutAdapter(this, R.layout.list_item, workouts);
         workoutList.setAdapter(workoutAdapter);
     }
 
@@ -50,7 +51,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, WorkoutActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.buttonStart:
+                int vv = (int) v.getTag();
+                break;
+            case R.id.buttonEdit:
+                mViewModel.DeleteFieldFromDataBase((int) v.getTag(), workouts);
+                workoutAdapter = new WorkoutAdapter(this, R.layout.list_item, workouts);
+                workoutList.setAdapter(workoutAdapter);
+                break;
         }
+
     }
 
 

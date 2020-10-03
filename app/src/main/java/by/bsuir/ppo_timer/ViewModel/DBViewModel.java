@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import by.bsuir.ppo_timer.DBHelper;
@@ -22,30 +23,28 @@ public class DBViewModel extends AndroidViewModel {
         dbHelper = new DBHelper(getApplication());
     }
 
-    public void AddFieldToDataBase(String Name, String TimeOfPreparation,
-                                   String TimeOfWork, String TimeOfRest,
-                                   String CountOfCycles, String CountOfSets,
-                                   String TimeOfRestBetweenSet, String TimeOfFinalRest) {
+    public void AddFieldToDataBase(Workout workout) {
         ContentValues cv = new ContentValues();
         // подключаемся к БД
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        cv.put("Name", Name);
-        cv.put("TimeOfPreparation", TimeOfPreparation);
-        cv.put("TimeOfWork", TimeOfWork);
-        cv.put("TimeOfRest", TimeOfRest);
-        cv.put("CountOfCycles", CountOfCycles);
-        cv.put("CountOfSets", CountOfSets);
-        cv.put("TimeOfRestBetweenSet", TimeOfRestBetweenSet);
-        cv.put("TimeOfFinalRest", TimeOfFinalRest);
+        cv.put("Name", workout.getName());
+        cv.put("TimeOfPreparation", workout.getTimeOfPreparation());
+        cv.put("TimeOfWork", workout.getTimeOfWork());
+        cv.put("TimeOfRest", workout.getTimeOfRest());
+        cv.put("CountOfCycles", workout.getCountOfCycles());
+        cv.put("CountOfSets", workout.getCountOfSets());
+        cv.put("TimeOfRestBetweenSet", workout.getTimeOfRestBetweenSet());
+        cv.put("TimeOfFinalRest", workout.getTimeOfFinalRest());
         db.insert("workout", null, cv);
     }
 
     public void ReadFieldsFromDataBase(List<Workout> workouts) {
+        workouts.clear();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("workout", null, null, null, null, null, null);
         if (c.moveToFirst()) {
 
-            // определяем номера столбцов по имени в выборке
+            int IdColIndex = c.getColumnIndex("id");
             int NameColIndex = c.getColumnIndex("Name");
             int TimeOfPreparationIndex = c.getColumnIndex("TimeOfPreparation");
             int TimeOfWorkIndex = c.getColumnIndex("TimeOfWork");
@@ -56,25 +55,18 @@ public class DBViewModel extends AndroidViewModel {
             int TimeOfFinalRestIndex = c.getColumnIndex("TimeOfFinalRest");
 
             do {
-                String nn = c.getString(NameColIndex)
-                        + c.getString(TimeOfPreparationIndex)
-                        + c.getString(TimeOfWorkIndex)
-                        + c.getString(TimeOfRestIndex)
-                        + c.getString(CountOfCyclesIndex)
-                        + c.getString(CountOfSetsIndex)
-                        + c.getString(TimeOfRestBetweenSetIndex)
-                        + c.getInt(TimeOfFinalRestIndex);
-                workouts.add(new Workout(c.getString(NameColIndex), c.getInt(TimeOfPreparationIndex),
-                        c.getInt(TimeOfWorkIndex), c.getInt(TimeOfRestIndex),
-                        c.getInt(CountOfCyclesIndex), c.getInt(CountOfSetsIndex),
-                        c.getInt(TimeOfRestBetweenSetIndex), c.getInt(TimeOfFinalRestIndex)));
+                workouts.add(new Workout(c.getInt(IdColIndex), c.getString(NameColIndex), c.getString(TimeOfPreparationIndex),
+                        c.getString(TimeOfWorkIndex), c.getString(TimeOfRestIndex),
+                        c.getString(CountOfCyclesIndex), c.getString(CountOfSetsIndex),
+                        c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex)));
 
-                // переход на следующую строку
-                // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
-        } else {
-            workouts.add(new Workout("start", 10, 10, 10, 10, 10, 10, 10));
         }
         c.close();
+    }
+    public void DeleteFieldFromDataBase(int id,List<Workout> workouts) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("workout", "id = " + id, null);
+        ReadFieldsFromDataBase(workouts);
     }
 }

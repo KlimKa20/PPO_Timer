@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,15 +28,16 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
 
         View view=inflater.inflate(this.layout, parent, false);
 
-        Workout state = workouts.get(position);
+        Workout workout = workouts.get(position);
 
-        ((TextView) view.findViewById(R.id.Title)).setText(state.getName());
-        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText(Integer.toString(state.getTimeOfPreparation()));
-        ((TextView) view.findViewById(R.id.TimeOfWork)).setText(Integer.toString(state.getTimeOfWork()));
-        ((TextView) view.findViewById(R.id.CountOfCycles)).setText(Integer.toString(state.getCountOfCycles()));
-        ((TextView) view.findViewById(R.id.TimeOfRest)).setText(Integer.toString(state.getTimeOfRest()));
+        ((TextView) view.findViewById(R.id.Title)).setText(workout.getName());
+        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText(workout.getTimeOfPreparation());
+        ((TextView) view.findViewById(R.id.TimeOfWork)).setText(workout.getTimeOfWork());
+        ((TextView) view.findViewById(R.id.CountOfCycles)).setText(workout.getCountOfCycles());
+        ((TextView) view.findViewById(R.id.TimeOfRest)).setText(workout.getTimeOfRest());
         ((TextView) view.findViewById(R.id.TotalTime)).setText("40");
-
+        ((Button) view.findViewById(R.id.buttonStart)).setTag(workout.getId());
+        ((Button) view.findViewById(R.id.buttonEdit)).setTag(workout.getId());
         return view;
     }
 }
