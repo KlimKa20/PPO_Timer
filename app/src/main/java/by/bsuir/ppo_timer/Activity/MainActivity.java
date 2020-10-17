@@ -45,14 +45,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
+        Intent intent;
         switch (v.getId()) {
             case R.id.NewWorkout:
-                Intent intent = new Intent(this, WorkoutActivity.class);
+                intent = new Intent(this, WorkoutActivity.class);
                 startActivity(intent);
                 break;
             case R.id.buttonStart:
-                int vv = (int) v.getTag();
+                int index = (int) v.getTag();
+                intent = new Intent(this, TimerActivity.class);
+                intent.putExtra("idWorkout",index);
+                startActivity(intent);
                 break;
             case R.id.buttonEdit:
                 mViewModel.DeleteFieldFromDataBase((int) v.getTag(), workouts);

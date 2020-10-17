@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "by.bsuir.ppo_timer"
-        minSdkVersion 26
+        minSdkVersion 20
         targetSdkVersion 30
         versionCode generateVersionCode(versionArray)
         versionName "${versionArray[0]}.${versionArray[1]}.${versionArray[2]}"

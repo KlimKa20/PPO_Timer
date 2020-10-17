@@ -17,4 +17,5 @@
     <string name="TimeOfRestBetweenSetTextView">0</string>
     <string name="TimeOfFinalRest">Cool down</string>
     <string name="TimeOfFinalRestTextView">0</string>
+    <string name="CreateButton">Create</string>
 </resources>

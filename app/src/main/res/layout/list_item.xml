@@ -19,7 +19,8 @@
             android:id="@+id/buttonStart"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_play" />
+            android:background="@android:drawable/ic_media_play"
+            android:onClick="onClick" />
 
         <Button
             android:id="@+id/buttonEdit"

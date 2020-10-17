@@ -437,5 +437,5 @@
         android:id="@+id/CreateWorkoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Создать" />
+        android:text="@string/CreateButton" />
 </LinearLayout>

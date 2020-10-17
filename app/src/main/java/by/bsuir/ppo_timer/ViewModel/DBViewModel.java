@@ -64,9 +64,36 @@ public class DBViewModel extends AndroidViewModel {
         }
         c.close();
     }
-    public void DeleteFieldFromDataBase(int id,List<Workout> workouts) {
+
+    public void DeleteFieldFromDataBase(int id, List<Workout> workouts) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("workout", "id = " + id, null);
         ReadFieldsFromDataBase(workouts);
+    }
+
+    public Workout FindById(int id) {
+        Workout workout = null;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("workout", null, "Id = ?", new String[]{Integer.toString(id)}, null, null, null);
+
+        if (c.moveToFirst()) {
+            int IdColIndex = c.getColumnIndex("id");
+            int NameColIndex = c.getColumnIndex("Name");
+            int TimeOfPreparationIndex = c.getColumnIndex("TimeOfPreparation");
+            int TimeOfWorkIndex = c.getColumnIndex("TimeOfWork");
+            int TimeOfRestIndex = c.getColumnIndex("TimeOfRest");
+            int CountOfCyclesIndex = c.getColumnIndex("CountOfCycles");
+            int CountOfSetsIndex = c.getColumnIndex("CountOfSets");
+            int TimeOfRestBetweenSetIndex = c.getColumnIndex("TimeOfRestBetweenSet");
+            int TimeOfFinalRestIndex = c.getColumnIndex("TimeOfFinalRest");
+            workout = new Workout(c.getInt(IdColIndex), c.getString(NameColIndex), c.getString(TimeOfPreparationIndex),
+                    c.getString(TimeOfWorkIndex), c.getString(TimeOfRestIndex),
+                    c.getString(CountOfCyclesIndex), c.getString(CountOfSetsIndex),
+                    c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex));
+        }
+
+
+        c.close();
+        return workout;
     }
 }

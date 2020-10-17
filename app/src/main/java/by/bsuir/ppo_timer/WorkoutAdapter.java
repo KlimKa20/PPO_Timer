@@ -24,18 +24,31 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
+
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view=inflater.inflate(this.layout, parent, false);
+        View view = inflater.inflate(this.layout, parent, false);
 
         Workout workout = workouts.get(position);
 
         ((TextView) view.findViewById(R.id.Title)).setText(workout.getName());
-        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText(workout.getTimeOfPreparation());
-        ((TextView) view.findViewById(R.id.TimeOfWork)).setText(workout.getTimeOfWork());
-        ((TextView) view.findViewById(R.id.CountOfCycles)).setText(workout.getCountOfCycles());
-        ((TextView) view.findViewById(R.id.TimeOfRest)).setText(workout.getTimeOfRest());
-        ((TextView) view.findViewById(R.id.TotalTime)).setText("40");
+        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText("Подготовка" + workout.getTimeOfPreparation());
+        ((TextView) view.findViewById(R.id.TimeOfWork)).setText("Работа" + workout.getTimeOfWork());
+        ((TextView) view.findViewById(R.id.TimeOfRest)).setText("Отдых" + workout.getTimeOfRest());
+        ((TextView) view.findViewById(R.id.CountOfCycles)).setText("Циклы" + workout.getCountOfCycles());
+
+        int time_cycle = Integer.parseInt(workout.getTimeOfPreparation());
+        for (int i = Integer.parseInt(workout.getCountOfSets()); i > 0; i--) {
+            for (int j = Integer.parseInt(workout.getCountOfCycles()); i > 0; i--) {
+                time_cycle += Integer.parseInt(workout.getTimeOfWork());
+                time_cycle += Integer.parseInt(workout.getTimeOfRest());
+            }
+            time_cycle += Integer.parseInt(workout.getTimeOfRestBetweenSet());
+        }
+        time_cycle += Integer.parseInt(workout.getTimeOfFinalRest());
+
+
+        ((TextView) view.findViewById(R.id.TotalTime)).setText("Общее время" + String.valueOf(time_cycle));
         ((Button) view.findViewById(R.id.buttonStart)).setTag(workout.getId());
         ((Button) view.findViewById(R.id.buttonEdit)).setTag(workout.getId());
         return view;
