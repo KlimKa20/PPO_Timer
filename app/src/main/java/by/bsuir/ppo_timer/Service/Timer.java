@@ -4,13 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.os.SystemClock;
-import android.widget.Chronometer;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -22,29 +16,39 @@ import by.bsuir.ppo_timer.R;
 
 public class Timer extends Service {
 
-    ExecutorService es;
-    SoundPool sp;
-    int soundIdShot;
+    ExecutorService service;
+    SoundPool soundPool;
+    int soundIdPip;
+    int soundIdPipAlter;
+    int current_time;
+    String name;
 
     public void onCreate() {
         super.onCreate();
-        sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        soundIdShot = sp.load(this, R.raw.shot, 1);
-        es = Executors.newFixedThreadPool(1);
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        soundIdPip = soundPool.load(this, R.raw.censore_preview, 1);
+        soundIdPipAlter = soundPool.load(this, R.raw.shot, 1);
+        service = Executors.newFixedThreadPool(1);
     }
 
     public void onDestroy() {
         super.onDestroy();
-        es.shutdownNow();
+        service.shutdownNow();
+        Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
+        intent.putExtra(TimerActivity.PARAM_PAUSE, "pause");
+        intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
+        intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
+        sendBroadcast(intent);
+
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        int time = Integer.parseInt( intent.getStringExtra(TimerActivity.PARAM_TIME));
-        String name = intent.getStringExtra(TimerActivity.PARAM_TASK);
+        int time = Integer.parseInt(intent.getStringExtra(TimerActivity.PARAM_START_TIME));
+        name = intent.getStringExtra(TimerActivity.PARAM_NAME_ELEMENT);
 
         MyRun mr = new MyRun(startId, time, name);
-        es.execute(mr);
+        service.execute(mr);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -67,20 +71,21 @@ public class Timer extends Service {
 
         public void run() {
             Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
-            if (name.equals("Финиш")){
-                intent.putExtra(TimerActivity.PARAM_TASK, name);
-                intent.putExtra(TimerActivity.PARAM_STATUS, "");
+            if (name.equals("Финиш")) {
+                intent.putExtra(TimerActivity.PARAM_PAUSE, "work");
+                intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
+                intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, "");
                 sendBroadcast(intent);
             }
             try {
-                for (int i = time; i  > 0; i--) {
-
-                    intent.putExtra(TimerActivity.PARAM_TASK, name);
-                    intent.putExtra(TimerActivity.PARAM_STATUS, Integer.toString(i));
+                for (current_time = time; current_time > 0; current_time--) {
+                    intent.putExtra(TimerActivity.PARAM_PAUSE, "work");
+                    intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
+                    intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
                     sendBroadcast(intent);
                     TimeUnit.SECONDS.sleep(1);
-                    if (i <= 4) {
-                        if (i == 1)
+                    if (current_time <= 4) {
+                        if (current_time == 1)
                             allertsignal();
                         else
                             signal();
@@ -90,11 +95,13 @@ public class Timer extends Service {
                 e.printStackTrace();
             }
         }
+
         void allertsignal() {
-            sp.play(soundIdShot, 1, 1, 0, 0, 1);
+            soundPool.play(soundIdPipAlter, 1, 1, 0, 0, 1);
         }
+
         void signal() {
-            sp.play(soundIdShot, 1, 1, 0, 0, 1);
+            soundPool.play(soundIdPip, 1, 1, 0, 0, 1);
         }
     }
 }

@@ -30,7 +30,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         View view = inflater.inflate(this.layout, parent, false);
 
         Workout workout = workouts.get(position);
-
+        view.setBackgroundColor(workout.getColor());
         ((TextView) view.findViewById(R.id.Title)).setText(workout.getName());
         ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText("Подготовка" + workout.getTimeOfPreparation());
         ((TextView) view.findViewById(R.id.TimeOfWork)).setText("Работа" + workout.getTimeOfWork());
@@ -51,6 +51,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         ((TextView) view.findViewById(R.id.TotalTime)).setText("Общее время" + String.valueOf(time_cycle));
         ((Button) view.findViewById(R.id.buttonStart)).setTag(workout.getId());
         ((Button) view.findViewById(R.id.buttonEdit)).setTag(workout.getId());
+        ((Button) view.findViewById(R.id.buttonDelete)).setTag(workout.getId());
         return view;
     }
 }

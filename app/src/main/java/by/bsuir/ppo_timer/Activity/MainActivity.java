@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
-        workoutList = (ListView) findViewById(R.id.Workoutlist);
-        ((Button) findViewById(R.id.NewWorkout)).setOnClickListener(this);
+        workoutList = findViewById(R.id.Workoutlist);
+        findViewById(R.id.NewWorkout).setOnClickListener(this);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.NewWorkout:
-                intent = new Intent(this, WorkoutActivity.class);
+                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj","-1");
                 startActivity(intent);
                 break;
             case R.id.buttonStart:
@@ -57,10 +57,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("idWorkout",index);
                 startActivity(intent);
                 break;
-            case R.id.buttonEdit:
+            case R.id.buttonDelete:
                 mViewModel.DeleteFieldFromDataBase((int) v.getTag(), workouts);
                 workoutAdapter = new WorkoutAdapter(this, R.layout.list_item, workouts);
                 workoutList.setAdapter(workoutAdapter);
+                break;
+            case R.id.buttonEdit:
+                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj",String.valueOf(v.getTag()));
+                startActivity(intent);
                 break;
         }
 

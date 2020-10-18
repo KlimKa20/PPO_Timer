@@ -1,7 +1,11 @@
 package by.bsuir.ppo_timer.Activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -11,9 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.divyanshu.colorseekbar.ColorSeekBar;
+
+import by.bsuir.ppo_timer.Model.Workout;
 import by.bsuir.ppo_timer.R;
 import by.bsuir.ppo_timer.ViewModel.CreateWorkoutViewModel;
 import by.bsuir.ppo_timer.ViewModel.DBViewModel;
@@ -30,39 +38,49 @@ public class WorkoutActivity extends AppCompatActivity {
 
     CreateWorkoutViewModel createWorkoutViewModel;
     DBViewModel mViewModel;
+    ColorSeekBar colorSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
         createWorkoutViewModel = ViewModelProviders.of(this).get(CreateWorkoutViewModel.class);
 
+        ActionBar actionBar = getSupportActionBar();
+
+        colorSeekBar = findViewById(R.id.color_seekBar);
         ((EditText) findViewById(R.id.NameTextViewEditText)).setOnEditorActionListener((v, actionId, event) -> {
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 createWorkoutViewModel.setName(((EditText) findViewById(R.id.NameTextViewEditText)).getText().toString());
+                actionBar.setTitle(((EditText) findViewById(R.id.NameTextViewEditText)).getText().toString());
                 return true;
             }
             return false;
         });
 
-        ((Button) findViewById(R.id.PreparationButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFPREPARATION));
-        ((Button) findViewById(R.id.WorkButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFWORK));
-        ((Button) findViewById(R.id.RestButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFREST));
-        ((Button) findViewById(R.id.CycleButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(COUNTOFCYCLE));
-        ((Button) findViewById(R.id.SetButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(COUNTOFSETS));
-        ((Button) findViewById(R.id.TimeOfRestBetweenSetButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFRESTBETWEENSET));
-        ((Button) findViewById(R.id.TimeOfFinalRestButtonMinus)).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFFINALREST));
+        Intent intent = getIntent();
 
-        ((Button) findViewById(R.id.PreparationButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFPREPARATION));
-        ((Button) findViewById(R.id.WorkButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFWORK));
-        ((Button) findViewById(R.id.RestButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFREST));
-        ((Button) findViewById(R.id.CycleButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFCYCLE));
-        ((Button) findViewById(R.id.SetButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFSETS));
-        ((Button) findViewById(R.id.TimeOfRestBetweenSetButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFRESTBETWEENSET));
-        ((Button) findViewById(R.id.TimeOfFinalRestButtonPlus)).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFFINALREST));
+        int status = Integer.parseInt(intent.getStringExtra("actionObj"));
+        findViewById(R.id.PreparationButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFPREPARATION));
+        findViewById(R.id.WorkButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFWORK));
+        findViewById(R.id.RestButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFREST));
+        findViewById(R.id.CycleButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(COUNTOFCYCLE));
+        findViewById(R.id.SetButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(COUNTOFSETS));
+        findViewById(R.id.TimeOfRestBetweenSetButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFRESTBETWEENSET));
+        findViewById(R.id.TimeOfFinalRestButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFFINALREST));
+
+        findViewById(R.id.PreparationButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFPREPARATION));
+        findViewById(R.id.WorkButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFWORK));
+        findViewById(R.id.RestButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFREST));
+        findViewById(R.id.CycleButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFCYCLE));
+        findViewById(R.id.SetButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFSETS));
+        findViewById(R.id.TimeOfRestBetweenSetButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFRESTBETWEENSET));
+        findViewById(R.id.TimeOfFinalRestButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFFINALREST));
+        colorSeekBar.setOnColorChangeListener(i -> createWorkoutViewModel.setColor(i));
 
         createWorkoutViewModel.GetValue(TIMEOFPREPARATION).observe(this, value -> ((TextView) findViewById(R.id.PreparationTextViewEditText)).setText(value));
         createWorkoutViewModel.GetValue(TIMEOFWORK).observe(this, value -> ((TextView) findViewById(R.id.WorkTextViewEditText)).setText(value));
@@ -71,9 +89,21 @@ public class WorkoutActivity extends AppCompatActivity {
         createWorkoutViewModel.GetValue(COUNTOFSETS).observe(this, value -> ((TextView) findViewById(R.id.SetTextViewEditText)).setText(value));
         createWorkoutViewModel.GetValue(TIMEOFRESTBETWEENSET).observe(this, value -> ((TextView) findViewById(R.id.TimeOfRestBetweenSetTextViewEditText)).setText(value));
         createWorkoutViewModel.GetValue(TIMEOFFINALREST).observe(this, value -> ((TextView) findViewById(R.id.TimeOfFinalRestTextViewEditText)).setText(value));
+        createWorkoutViewModel.getColor().observe(this,value -> actionBar.setBackgroundDrawable(new ColorDrawable(value)));
+        if( status != -1){
+            Workout workout = mViewModel.FindById(status);
+            createWorkoutViewModel.Initialize(workout);
+            ((EditText) findViewById(R.id.NameTextViewEditText)).setText(workout.getName());
+            actionBar.setTitle(workout.getName());
+        }
 
-        ((Button) findViewById(R.id.CreateWorkoutButton)).setOnClickListener(item -> {
-            mViewModel.AddFieldToDataBase(createWorkoutViewModel.getObject());
+        findViewById(R.id.CreateWorkoutButton).setOnClickListener(item -> {
+            if( status == -1){
+                mViewModel.AddFieldToDataBase(createWorkoutViewModel.getObject(0));
+            }
+            else {
+                mViewModel.UpdateField(createWorkoutViewModel.getObject(status));
+            }
             super.finish();
         });
     }

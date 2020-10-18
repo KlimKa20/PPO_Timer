@@ -11,7 +11,11 @@ public class Workout {
     private String TimeOfRestBetweenSet;
     private String TimeOfFinalRest;
 
-    public Workout(int id, String name, String timeOfPreparation, String timeOfWork, String timeOfRest, String countOfCycles, String countOfSets, String timeOfRestBetweenSet, String timeOfFinalRest) {
+
+
+    private int color;
+
+    public Workout(int id, String name, String timeOfPreparation, String timeOfWork, String timeOfRest, String countOfCycles, String countOfSets, String timeOfRestBetweenSet, String timeOfFinalRest, int color) {
         Id = id;
         Name = name;
         TimeOfPreparation = timeOfPreparation;
@@ -21,6 +25,7 @@ public class Workout {
         CountOfSets = countOfSets;
         TimeOfRestBetweenSet = timeOfRestBetweenSet;
         TimeOfFinalRest = timeOfFinalRest;
+        this.color = color;
     }
 
     public int getId() {
@@ -89,5 +94,13 @@ public class Workout {
 
     public void setTimeOfFinalRest(String timeOfFinalRest) {
         TimeOfFinalRest = timeOfFinalRest;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

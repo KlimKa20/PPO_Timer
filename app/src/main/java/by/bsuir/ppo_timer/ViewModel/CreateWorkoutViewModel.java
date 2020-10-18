@@ -19,6 +19,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
     private final MutableLiveData<String> CountOfSets = new MutableLiveData<>("1");
     private final MutableLiveData<String> TimeOfRestBetweenSet = new MutableLiveData<>("0");
     private final MutableLiveData<String> TimeOfFinalRest = new MutableLiveData<>("0");
+    private final MutableLiveData<Integer> Color = new MutableLiveData<>(-16777216);
 
     public CreateWorkoutViewModel(@NonNull Application application) {
         super(application);
@@ -55,6 +56,16 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         }
     }
 
+    public void Initialize(Workout workout){
+        TimeOfPreparation.setValue(workout.getTimeOfPreparation());
+        TimeOfWork.setValue(workout.getTimeOfWork());
+        TimeOfRest.setValue(workout.getTimeOfRest());
+        CountOfCycles.setValue(workout.getCountOfCycles());
+        CountOfSets.setValue(workout.getCountOfSets());
+        TimeOfRestBetweenSet.setValue(workout.getTimeOfRestBetweenSet());
+        TimeOfFinalRest.setValue(workout.getTimeOfFinalRest());
+        Color.setValue(workout.getColor());
+    }
     public void decrement(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
@@ -81,6 +92,14 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         }
     }
 
+    public void setColor(int color){
+        Color.postValue(color);
+    }
+
+    public LiveData<Integer> getColor(){
+        return Color;
+    }
+
     public LiveData<String> GetValue(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
@@ -102,7 +121,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         }
     }
 
-    public Workout getObject() {
-        return new Workout(0,Name.getValue(), TimeOfPreparation.getValue(), TimeOfWork.getValue(), TimeOfRest.getValue(), CountOfCycles.getValue(), CountOfSets.getValue(), TimeOfRestBetweenSet.getValue(), TimeOfFinalRest.getValue());
+    public Workout getObject(int id) {
+        return new Workout(id,Name.getValue(), TimeOfPreparation.getValue(), TimeOfWork.getValue(), TimeOfRest.getValue(), CountOfCycles.getValue(), CountOfSets.getValue(), TimeOfRestBetweenSet.getValue(), TimeOfFinalRest.getValue(),Color.getValue());
     }
 }

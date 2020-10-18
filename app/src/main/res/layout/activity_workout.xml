@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_centerInParent="true"
     android:orientation="vertical">
 
 
@@ -76,6 +77,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/oval_button"
                     android:text="-" />
+
                 <TextView
                     android:id="@+id/PreparationTextViewEditText"
                     android:layout_width="282dp"
@@ -432,6 +434,14 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
+    <com.divyanshu.colorseekbar.ColorSeekBar
+        android:id="@+id/color_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/white" />
 
     <Button
         android:id="@+id/CreateWorkoutButton"
