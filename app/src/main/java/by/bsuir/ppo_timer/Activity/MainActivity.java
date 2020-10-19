@@ -1,16 +1,26 @@
 package by.bsuir.ppo_timer.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import by.bsuir.ppo_timer.Model.Workout;
 import by.bsuir.ppo_timer.R;
@@ -23,15 +33,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<Workout> workouts = new ArrayList<>();
     ListView workoutList;
     WorkoutAdapter workoutAdapter;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
         workoutList = findViewById(R.id.Workoutlist);
         findViewById(R.id.NewWorkout).setOnClickListener(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String listValue = sp.getString("test_lang", "не выбрано");
+        if (listValue.equals("English") || listValue.equals("Английский"))
+        {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configuration, null);
+        }
+        else {
+            Locale locale = new Locale("ru");
+            Locale.setDefault(locale);
+            Configuration configuration = new Configuration();
+            configuration.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configuration, null);
+        }
+    }
+
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -69,6 +100,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem mi = menu.add(0, 1, 0, "Preferences");
+        mi.setIntent(new Intent(this, SettingActivity.class));
+        return super.onCreateOptionsMenu(menu);
+    }
 
-
+    @Override
+    protected void onRestart() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        super.onRestart();
+    }
 }

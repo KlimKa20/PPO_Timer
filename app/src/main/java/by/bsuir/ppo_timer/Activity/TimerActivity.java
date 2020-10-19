@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class TimerActivity extends AppCompatActivity {
                         }
                     } else {
                         if (check_one_bool) {
-                            lvSimple.getChildAt(element - 1).setBackgroundColor(Color.WHITE);
+                            lvSimple.getChildAt(element - 1).setBackgroundColor( getResources().getColor(R.color.itemrest) );
                             lvSimple.getChildAt(element).setBackgroundColor(Color.parseColor("#ff1dcc4c"));
                             check_one_bool = false;
                         }
@@ -146,7 +147,7 @@ public class TimerActivity extends AppCompatActivity {
         element = position;
         stopService(new Intent(this, Timer.class).putExtra(PARAM_STOP, "stop"));
         for (int i = 0; i < adapter.getCount(); i++) {
-            lvSimple.getChildAt(i).setBackgroundColor(Color.WHITE);
+            lvSimple.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.itemrest) );
         }
         change_bool = true;
         check_one_bool = false;
@@ -173,7 +174,7 @@ public class TimerActivity extends AppCompatActivity {
             String time_work = workout.getTimeOfPreparation();
             element = 0;
             AddNewService("Подготовка", time_work);
-            lvSimple.getChildAt(adapter.getCount()-1).setBackgroundColor(Color.WHITE);
+            lvSimple.getChildAt(adapter.getCount()-1).setBackgroundColor(getResources().getColor(R.color.itemrest) );
             lvSimple.getChildAt(element).setBackgroundColor(Color.parseColor("#ff1dcc4c"));
         } else {
             element = value_element_pause;

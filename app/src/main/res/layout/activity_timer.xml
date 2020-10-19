@@ -11,26 +11,17 @@
         android:onClick="onStartClick"
         android:text="Start" />
 
-    <Button
-        android:id="@+id/buttonPause"
+    <TextView
+        android:id="@+id/Nameworkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onResetClick"
-        android:text="Pause" />
+        android:gravity="center" />
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/Timeworkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/time2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView" />
+        android:gravity="center" />
     <ListView
         android:id="@+id/lvSimple"
         android:layout_width="match_parent"

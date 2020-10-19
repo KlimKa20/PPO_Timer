@@ -112,4 +112,11 @@ public class DBViewModel extends AndroidViewModel {
         db.update("workout", cv, "id = ?",
                 new String[] { Integer.toString(workout.getId()) });
     }
+    public void removeAll()
+    {
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
+        SQLiteDatabase db = dbHelper.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
+        db.delete("workout", null, null);
+    }
 }
