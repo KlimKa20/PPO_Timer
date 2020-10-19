@@ -18,6 +18,7 @@
     <string name="TimeOfFinalRest">Успокоиться</string>
     <string name="TimeOfFinalRestTextView">0</string>
     <string name="CreateButton">Создать</string>
+    <string name="Finish">Финиш</string>
     <string-array name="text_lang">
         <item>Русский</item>
         <item>Английский</item>

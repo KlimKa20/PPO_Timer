@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="fontSize"
+        android:title="Стиль для шрифта"
+        android:summary="Устанавливает стиль для шрифта"
+        android:defaultValue="1"
+        android:entries="@array/text_style"
+        android:entryValues="@array/text_style"
+        android:dialogTitle="Выберите стиль для шрифта" />
+    <ListPreference
+        android:defaultValue="1"
+        android:dialogTitle="Выберите язык"
+        android:entries="@array/text_lang"
+        android:entryValues="@array/text_lang"
+        android:key="test_lang"
+        android:summary="Язык в приложении"
+        android:title="Язык" />
+    <SwitchPreference
+        android:key="theme"
+        android:summaryOff="Ночная тема"
+        android:summaryOn="Ночная тема"
+        android:switchTextOff="Включить"
+        android:switchTextOn="Выключить" />
+    <Preference
+        android:title="Acts like a button"
+        android:key="DeleteAll"
+        android:summary="This is a cool button"
+        />
+</PreferenceScreen>

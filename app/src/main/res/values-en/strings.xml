@@ -18,6 +18,7 @@
     <string name="TimeOfFinalRest">Cool down</string>
     <string name="TimeOfFinalRestTextView">0</string>
     <string name="CreateButton">Create</string>
+    <string name="Finish">Finish</string>
     <string-array name="text_lang">
         <item>Russian</item>
         <item>English</item>
