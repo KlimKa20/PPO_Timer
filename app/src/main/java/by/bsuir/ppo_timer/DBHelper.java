@@ -1,6 +1,5 @@
 package by.bsuir.ppo_timer;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "CountOfCycles text,"
                 + "CountOfSets text,"
                 + "TimeOfRestBetweenSet text,"
-                + "TimeOfFinalRest text"+");");
+                + "TimeOfFinalRest text" + ");");
     }
 
 
@@ -42,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         + "CountOfSets text,"
                         + "TimeOfRestBetweenSet text,"
                         + "TimeOfFinalRest text,"
-                        + "color integer"+");");
+                        + "color integer" + ");");
 
                 db.execSQL("insert into people_tmp select id, Name, TimeOfPreparation, TimeOfWork,TimeOfRest,CountOfCycles,CountOfSets,TimeOfRestBetweenSet,TimeOfFinalRest,-16777216 from workout;");
                 db.execSQL("drop table workout;");
@@ -57,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         + "CountOfSets text,"
                         + "TimeOfRestBetweenSet text,"
                         + "TimeOfFinalRest text,"
-                        + "color integer"+");");
+                        + "color integer" + ");");
 
                 db.execSQL("insert into workout select id, Name, TimeOfPreparation, TimeOfWork,TimeOfRest,CountOfCycles,CountOfSets,TimeOfRestBetweenSet,TimeOfFinalRest,color from people_tmp;");
                 db.execSQL("drop table people_tmp;");

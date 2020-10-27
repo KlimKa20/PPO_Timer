@@ -22,7 +22,8 @@
             android:enabled="true"
             android:exported="true" />
         <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.TimerActivity" />
+        <activity android:name=".Activity.TimerActivity"
+                android:screenOrientation="portrait"/>
         <activity android:name=".Activity.WorkoutActivity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>

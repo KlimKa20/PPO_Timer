@@ -1,15 +1,14 @@
 package by.bsuir.ppo_timer.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.Locale;
 
@@ -26,7 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         String listValue = sp.getString("test_lang", "не выбрано");
-        Boolean theme = sp.getBoolean("theme", false);
+        boolean theme = sp.getBoolean("theme", false);
         String font = sp.getString("fontSize", "");
 
         Configuration configuration = new Configuration();
@@ -40,7 +39,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         configuration.locale = locale;
 
 
-
         if (font.equals("Малый") || font.equals("Small")) {
             configuration.fontScale = (float) 0.85;
         } else if (font.equals("Нормальный") || font.equals("Normal")) {
@@ -51,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         getBaseContext().getResources().updateConfiguration(configuration, null);
 
-        if (theme == true) {
+        if (theme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

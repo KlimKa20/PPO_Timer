@@ -1,26 +1,18 @@
 package by.bsuir.ppo_timer.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import by.bsuir.ppo_timer.Model.Workout;
 import by.bsuir.ppo_timer.R;
@@ -29,11 +21,11 @@ import by.bsuir.ppo_timer.WorkoutAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int REQUEST_ACCESS_TYPE = 200;
     DBViewModel mViewModel;
     List<Workout> workouts = new ArrayList<>();
     ListView workoutList;
     WorkoutAdapter workoutAdapter;
-    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,33 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
         workoutList = findViewById(R.id.Workoutlist);
         findViewById(R.id.NewWorkout).setOnClickListener(this);
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        String listValue = sp.getString("test_lang", "не выбрано");
-        if (listValue.equals("English") || listValue.equals("Английский"))
-        {
-            Locale locale = new Locale("en");
-            Locale.setDefault(locale);
-            Configuration configuration = new Configuration();
-            configuration.locale = locale;
-            getBaseContext().getResources().updateConfiguration(configuration, null);
-        }
-        else {
-            Locale locale = new Locale("ru");
-            Locale.setDefault(locale);
-            Configuration configuration = new Configuration();
-            configuration.locale = locale;
-            getBaseContext().getResources().updateConfiguration(configuration, null);
-        }
-    }
-
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         mViewModel.ReadFieldsFromDataBase(workouts);
         workoutAdapter = new WorkoutAdapter(this, R.layout.list_item, workouts);
         workoutList.setAdapter(workoutAdapter);
@@ -79,13 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.NewWorkout:
-                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj","-1");
+                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj", -1);
                 startActivity(intent);
                 break;
             case R.id.buttonStart:
                 int index = (int) v.getTag();
                 intent = new Intent(this, TimerActivity.class);
-                intent.putExtra("idWorkout",index);
+                intent.putExtra("idWorkout", index);
                 startActivity(intent);
                 break;
             case R.id.buttonDelete:
@@ -94,23 +64,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 workoutList.setAdapter(workoutAdapter);
                 break;
             case R.id.buttonEdit:
-                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj",String.valueOf(v.getTag()));
+                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj", (int)v.getTag());
                 startActivity(intent);
                 break;
         }
-
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem mi = menu.add(0, 1, 0, "Preferences");
-        mi.setIntent(new Intent(this, SettingActivity.class));
+        menu.add(0, 1, 0, getResources().getString(R.string.Preferences));
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    protected void onRestart() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-        super.onRestart();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivityForResult(intent,REQUEST_ACCESS_TYPE);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode==REQUEST_ACCESS_TYPE){
+            if(resultCode==RESULT_OK){
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

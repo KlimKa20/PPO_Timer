@@ -7,8 +7,9 @@ import android.media.SoundPool;
 import android.os.IBinder;
 
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import by.bsuir.ppo_timer.Activity.TimerActivity;
@@ -16,29 +17,31 @@ import by.bsuir.ppo_timer.R;
 
 public class Timer extends Service {
 
-    ExecutorService service;
+    ScheduledExecutorService service;
     SoundPool soundPool;
     int soundIdPip;
     int soundIdPipAlter;
     int current_time;
     String name;
+    ScheduledFuture<?> scheduledFuture;
 
     public void onCreate() {
         super.onCreate();
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         soundIdPip = soundPool.load(this, R.raw.censore_preview, 1);
         soundIdPipAlter = soundPool.load(this, R.raw.shot, 1);
-        service = Executors.newFixedThreadPool(1);
+        service = Executors.newScheduledThreadPool(1);
     }
 
     public void onDestroy() {
-        super.onDestroy();
         service.shutdownNow();
+        scheduledFuture.cancel(true);
         Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
         intent.putExtra(TimerActivity.PARAM_PAUSE, "pause");
         intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
         intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
         sendBroadcast(intent);
+        super.onDestroy();
 
     }
 
@@ -48,7 +51,18 @@ public class Timer extends Service {
         name = intent.getStringExtra(TimerActivity.PARAM_NAME_ELEMENT);
 
         MyRun mr = new MyRun(startId, time, name);
-        service.execute(mr);
+        if (scheduledFuture != null) {
+            service.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    scheduledFuture.cancel(true);
+                    scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
+                    ;
+                }
+            }, 990, TimeUnit.MILLISECONDS);
+        } else {
+            scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -71,7 +85,7 @@ public class Timer extends Service {
 
         public void run() {
             Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
-            if (name.equals("Финиш")) {
+            if (name.equals(getResources().getString(R.string.Finish))) {
                 intent.putExtra(TimerActivity.PARAM_PAUSE, "work");
                 intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
                 intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, "");

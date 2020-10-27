@@ -25,9 +25,8 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public Boolean setName(String name) {
+    public void setName(String name) {
         Name.setValue(name);
-        return true;
     }
 
     public void increment(FieldType field) {
@@ -56,7 +55,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         }
     }
 
-    public void Initialize(Workout workout){
+    public void Initialize(Workout workout) {
         TimeOfPreparation.setValue(workout.getTimeOfPreparation());
         TimeOfWork.setValue(workout.getTimeOfWork());
         TimeOfRest.setValue(workout.getTimeOfRest());
@@ -66,6 +65,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         TimeOfFinalRest.setValue(workout.getTimeOfFinalRest());
         Color.setValue(workout.getColor());
     }
+
     public void decrement(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
@@ -92,11 +92,11 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         }
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         Color.postValue(color);
     }
 
-    public LiveData<Integer> getColor(){
+    public LiveData<Integer> getColor() {
         return Color;
     }
 
@@ -122,6 +122,6 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
     }
 
     public Workout getObject(int id) {
-        return new Workout(id,Name.getValue(), TimeOfPreparation.getValue(), TimeOfWork.getValue(), TimeOfRest.getValue(), CountOfCycles.getValue(), CountOfSets.getValue(), TimeOfRestBetweenSet.getValue(), TimeOfFinalRest.getValue(),Color.getValue());
+        return new Workout(id, Name.getValue(), TimeOfPreparation.getValue(), TimeOfWork.getValue(), TimeOfRest.getValue(), CountOfCycles.getValue(), CountOfSets.getValue(), TimeOfRestBetweenSet.getValue(), TimeOfFinalRest.getValue(), Color.getValue());
     }
 }

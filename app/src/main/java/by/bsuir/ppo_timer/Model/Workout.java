@@ -12,7 +12,6 @@ public class Workout {
     private String TimeOfFinalRest;
 
 
-
     private int color;
 
     public Workout(int id, String name, String timeOfPreparation, String timeOfWork, String timeOfRest, String countOfCycles, String countOfSets, String timeOfRestBetweenSet, String timeOfFinalRest, int color) {

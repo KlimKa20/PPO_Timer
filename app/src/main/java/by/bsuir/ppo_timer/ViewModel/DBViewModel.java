@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import by.bsuir.ppo_timer.DBHelper;
@@ -60,7 +59,7 @@ public class DBViewModel extends AndroidViewModel {
                 workouts.add(new Workout(c.getInt(IdColIndex), c.getString(NameColIndex), c.getString(TimeOfPreparationIndex),
                         c.getString(TimeOfWorkIndex), c.getString(TimeOfRestIndex),
                         c.getString(CountOfCyclesIndex), c.getString(CountOfSetsIndex),
-                        c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex),c.getInt(color)));
+                        c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex), c.getInt(color)));
             } while (c.moveToNext());
         }
         c.close();
@@ -91,12 +90,13 @@ public class DBViewModel extends AndroidViewModel {
             workout = new Workout(c.getInt(IdColIndex), c.getString(NameColIndex), c.getString(TimeOfPreparationIndex),
                     c.getString(TimeOfWorkIndex), c.getString(TimeOfRestIndex),
                     c.getString(CountOfCyclesIndex), c.getString(CountOfSetsIndex),
-                    c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex),c.getInt(color));
+                    c.getString(TimeOfRestBetweenSetIndex), c.getString(TimeOfFinalRestIndex), c.getInt(color));
         }
         c.close();
         return workout;
     }
-    public void UpdateField(Workout workout){
+
+    public void UpdateField(Workout workout) {
         ContentValues cv = new ContentValues();
         // подключаемся к БД
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -110,10 +110,10 @@ public class DBViewModel extends AndroidViewModel {
         cv.put("TimeOfFinalRest", workout.getTimeOfFinalRest());
         cv.put("color", workout.getColor());
         db.update("workout", cv, "id = ?",
-                new String[] { Integer.toString(workout.getId()) });
+                new String[]{Integer.toString(workout.getId())});
     }
-    public void removeAll()
-    {
+
+    public void removeAll() {
         // db.delete(String tableName, String whereClause, String[] whereArgs);
         // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = dbHelper.getWritableDatabase(); // helper is object extends SQLiteOpenHelper

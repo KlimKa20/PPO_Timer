@@ -16,9 +16,25 @@
     <string name="TimeOfRestBetweenSet">Отдых между сетами</string>
     <string name="TimeOfRestBetweenSetTextView">0</string>
     <string name="TimeOfFinalRest">Успокоиться</string>
-    <string name="TimeOfFinalRestTextView">0</string>
+    <string name="TimeOfFinalRestTextView">5</string>
     <string name="CreateButton">Создать</string>
     <string name="Finish">Финиш</string>
+    <string name="Totaltime">"Общее время"</string>
+    <string name="Preferences">Свойства</string>
+    <string name="Fontstyle">Стиль для шрифта</string>
+    <string name="Setsthefontstyle">Устанавливает стиль для шрифта</string>
+    <string name="Chooseafontstyle">Выберите стиль для шрифта</string>
+    <string name="Selectalanguage">Выберите язык</string>
+    <string name="Languageintheapp">Язык в приложении</string>
+    <string name="Language">Язык</string>
+    <string name="Nighttheme">Ночная тема</string>
+    <string name="Turnon">Включить</string>
+    <string name="Turnoff">Включить</string>
+    <string name="Delete">Удалить</string>
+    <string name="DeleteAll">Удалить все </string>
+    <string name="Start">Старт</string>
+    <string name="Pause">Пауза</string>
+
     <string-array name="text_lang">
         <item>Русский</item>
         <item>Английский</item>

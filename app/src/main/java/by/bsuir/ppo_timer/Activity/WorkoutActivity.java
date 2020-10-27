@@ -2,18 +2,12 @@ package by.bsuir.ppo_timer.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +58,6 @@ public class WorkoutActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        int status = Integer.parseInt(intent.getStringExtra("actionObj"));
         findViewById(R.id.PreparationButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFPREPARATION));
         findViewById(R.id.WorkButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFWORK));
         findViewById(R.id.RestButtonMinus).setOnClickListener(item -> createWorkoutViewModel.decrement(TIMEOFREST));
@@ -89,19 +82,21 @@ public class WorkoutActivity extends AppCompatActivity {
         createWorkoutViewModel.GetValue(COUNTOFSETS).observe(this, value -> ((TextView) findViewById(R.id.SetTextViewEditText)).setText(value));
         createWorkoutViewModel.GetValue(TIMEOFRESTBETWEENSET).observe(this, value -> ((TextView) findViewById(R.id.TimeOfRestBetweenSetTextViewEditText)).setText(value));
         createWorkoutViewModel.GetValue(TIMEOFFINALREST).observe(this, value -> ((TextView) findViewById(R.id.TimeOfFinalRestTextViewEditText)).setText(value));
-        createWorkoutViewModel.getColor().observe(this,value -> actionBar.setBackgroundDrawable(new ColorDrawable(value)));
-        if( status != -1){
+        createWorkoutViewModel.getColor().observe(this, value -> actionBar.setBackgroundDrawable(new ColorDrawable(value)));
+
+        int status = intent.getIntExtra("actionObj",0);
+        if (status != -1) {
             Workout workout = mViewModel.FindById(status);
             createWorkoutViewModel.Initialize(workout);
+            createWorkoutViewModel.setName(workout.getName());
             ((EditText) findViewById(R.id.NameTextViewEditText)).setText(workout.getName());
             actionBar.setTitle(workout.getName());
         }
 
         findViewById(R.id.CreateWorkoutButton).setOnClickListener(item -> {
-            if( status == -1){
+            if (status == -1) {
                 mViewModel.AddFieldToDataBase(createWorkoutViewModel.getObject(0));
-            }
-            else {
+            } else {
                 mViewModel.UpdateField(createWorkoutViewModel.getObject(status));
             }
             super.finish();

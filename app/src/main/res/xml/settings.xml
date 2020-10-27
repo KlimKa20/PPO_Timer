@@ -2,29 +2,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
         android:key="fontSize"
-        android:title="Стиль для шрифта"
-        android:summary="Устанавливает стиль для шрифта"
+        android:title="@string/Fontstyle"
+        android:summary="@string/Setsthefontstyle"
         android:defaultValue="1"
         android:entries="@array/text_style"
         android:entryValues="@array/text_style"
-        android:dialogTitle="Выберите стиль для шрифта" />
+        android:dialogTitle="@string/Chooseafontstyle" />
     <ListPreference
         android:defaultValue="1"
-        android:dialogTitle="Выберите язык"
+        android:dialogTitle="@string/Selectalanguage"
         android:entries="@array/text_lang"
         android:entryValues="@array/text_lang"
         android:key="test_lang"
-        android:summary="Язык в приложении"
-        android:title="Язык" />
+        android:summary="@string/Languageintheapp"
+        android:title="@string/Language" />
     <SwitchPreference
         android:key="theme"
-        android:summaryOff="Ночная тема"
-        android:summaryOn="Ночная тема"
-        android:switchTextOff="Включить"
-        android:switchTextOn="Выключить" />
+        android:summaryOff="@string/Nighttheme"
+        android:summaryOn="@string/Nighttheme"
+        android:switchTextOff="@string/Turnon"
+        android:switchTextOn="@string/Turnoff" />
     <Preference
-        android:title="Acts like a button"
+        android:title="@string/Delete"
         android:key="DeleteAll"
-        android:summary="This is a cool button"
+        android:summary="@string/DeleteAll"
         />
 </PreferenceScreen>

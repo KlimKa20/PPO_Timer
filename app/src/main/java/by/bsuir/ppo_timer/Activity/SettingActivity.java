@@ -1,22 +1,16 @@
 package by.bsuir.ppo_timer.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.Locale;
 
@@ -24,13 +18,49 @@ import by.bsuir.ppo_timer.R;
 import by.bsuir.ppo_timer.ViewModel.DBViewModel;
 
 public class SettingActivity extends PreferenceActivity {
-    DBViewModel mViewModel;
-
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getBoolean("theme",true))
+        {
+            setTheme(R.style.Theme_AppCompat);
+        }
+
+
+
+        String font = sp.getString("fontSize", "");
+        String listValue = sp.getString("test_lang", "не выбрано");
+        Locale locale;
+        if (listValue.equals("English") || listValue.equals("Английский")) {
+            locale   = new Locale("en");
+        }
+        else {
+            locale = new Locale("ru");
+        }
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        if (font.equals("Малый") || font.equals("Small")) {
+            configuration.fontScale = (float) 0.85;
+        } else if (font.equals("Нормальный") || font.equals("Normal")) {
+            configuration.fontScale = (float) 1;
+        } else {
+            configuration.fontScale = (float) 1.15;
+        }
+        getBaseContext().getResources().updateConfiguration(configuration, null);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
+        super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent data = new Intent();
+        setResult(RESULT_OK, data);
+        finish();
+        super.onBackPressed();
+    }
+
 
     public static class MyPreferenceFragment extends PreferenceFragment {
 
@@ -46,11 +76,12 @@ public class SettingActivity extends PreferenceActivity {
             Preference theme = findPreference("theme");
             Preference font = findPreference("fontSize");
             theme.setOnPreferenceChangeListener((preference, newValue) -> {
-                if ((boolean) newValue == true) {
+                if ((boolean) newValue) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
+                getActivity().recreate();
                 return true;
             });
             deleteAll.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -67,7 +98,7 @@ public class SettingActivity extends PreferenceActivity {
                     configuration.locale = locale;
                     getActivity().getResources().updateConfiguration(configuration, null);
                 }
-                onCreate(null);
+
                 return true;
 
             });
@@ -80,21 +111,25 @@ public class SettingActivity extends PreferenceActivity {
             font.setOnPreferenceChangeListener((preference, newValue) -> {
                 Configuration configuration = getResources().getConfiguration();
                 if (newValue.toString().equals("Малый") || newValue.toString().equals("Small")) {
-                    configuration.fontScale=(float) 0.85;
+                    configuration.fontScale = (float) 0.85;
                 } else if (newValue.toString().equals("Нормальный") || newValue.toString().equals("Normal")) {
-                    configuration.fontScale=(float) 1;
+                    configuration.fontScale = (float) 1;
                 } else {
-                    configuration.fontScale=(float) 1.15;
+                    configuration.fontScale = (float) 1.15;
                 }
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
                 metrics.scaledDensity = configuration.fontScale * metrics.density;
                 getActivity().getBaseContext().getResources().updateConfiguration(configuration, metrics);
-//                setPreferenceScreen(null);
 
-                onCreate(null);
                 return true;
             });
         }
+
+
+    }
+    public void restartFragment() {
+        MyPreferenceFragment fragment = new MyPreferenceFragment();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
     }
 }
