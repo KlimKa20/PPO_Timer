@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "by.bsuir.ppo_timer"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode generateVersionCode(versionArray)
         versionName "${versionArray[0]}.${versionArray[1]}.${versionArray[2]}"
@@ -41,4 +41,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.divyanshu.colorseekbar:colorseekbar:1.0'
+    implementation "codes.side:andcolorpicker:0.4.0"
 }

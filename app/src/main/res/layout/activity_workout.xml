@@ -435,13 +435,20 @@
         </LinearLayout>
     </LinearLayout>
 
-
-    <com.divyanshu.colorseekbar.ColorSeekBar
-        android:id="@+id/color_seekBar"
+    <codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar
+        android:id="@+id/hueSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@android:color/white" />
+        app:hslColoringMode="pure"
+        app:hslMode="hue"
+        />
+
+<!--    <com.divyanshu.colorseekbar.ColorSeekBar-->
+<!--        android:id="@+id/color_seekBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:background="@android:color/white" />-->
 
     <Button
         android:id="@+id/CreateWorkoutButton"

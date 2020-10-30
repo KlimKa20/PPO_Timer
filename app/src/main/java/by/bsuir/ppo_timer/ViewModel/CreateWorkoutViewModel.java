@@ -93,7 +93,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
     }
 
     public void setColor(int color) {
-        Color.postValue(color);
+        Color.setValue(color);
     }
 
     public LiveData<Integer> getColor() {

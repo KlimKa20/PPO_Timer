@@ -49,16 +49,12 @@ public class Timer extends Service {
 
         int time = Integer.parseInt(intent.getStringExtra(TimerActivity.PARAM_START_TIME));
         name = intent.getStringExtra(TimerActivity.PARAM_NAME_ELEMENT);
-
         MyRun mr = new MyRun(startId, time, name);
         if (scheduledFuture != null) {
-            service.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    scheduledFuture.cancel(true);
-                    scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
-                    ;
-                }
+            service.schedule(() -> {
+                scheduledFuture.cancel(true);
+                scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
+                ;
             }, 990, TimeUnit.MILLISECONDS);
         } else {
             scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
