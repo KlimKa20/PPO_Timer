@@ -17,8 +17,7 @@ import by.bsuir.ppo_timer.R;
 public class SplashScreenActivity extends AppCompatActivity {
 
     SharedPreferences sp;
-    private final int SPLASH_DISPLAY_LENGHT = 3000;
-
+    final int SPLASH_DISPLAY_LENGTH = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +55,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_splash_screen);
+
         new Handler().postDelayed(() -> {
             Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
             SplashScreenActivity.this.startActivity(mainIntent);
             SplashScreenActivity.this.finish();
-        }, SPLASH_DISPLAY_LENGHT);
+        }, SPLASH_DISPLAY_LENGTH);
     }
 }

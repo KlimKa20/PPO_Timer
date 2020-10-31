@@ -25,7 +25,7 @@
                 <ImageView
                     android:id="@+id/NameImageView"
                     android:layout_width="100dp"
-                    android:layout_height="60dp"
+                    android:layout_height="70dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/abc_vector_test" />
 
@@ -44,7 +44,7 @@
                     <EditText
                         android:id="@+id/NameTextViewEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:hint="@string/NameTextView" />
                 </LinearLayout>
             </LinearLayout>
@@ -91,8 +91,7 @@
                             android:id="@+id/WorkTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/WorkTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/WorkButtonPlus"
@@ -148,8 +147,7 @@
                             android:id="@+id/PreparationTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/PreparationTextView" />
+                            android:layout_weight="1"/>
 
 
                         <Button
@@ -206,8 +204,7 @@
                             android:id="@+id/SetTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/SetTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/SetButtonPlus"
@@ -262,8 +259,7 @@
                             android:id="@+id/CycleTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/CycleTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/CycleButtonPlus"
@@ -318,8 +314,7 @@
                             android:id="@+id/RestTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/RestTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/RestButtonPlus"
@@ -374,8 +369,7 @@
                             android:id="@+id/TimeOfFinalRestTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/TimeOfFinalRestTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/TimeOfFinalRestButtonPlus"
@@ -430,8 +424,7 @@
                             android:id="@+id/TimeOfRestBetweenSetTextViewEditText"
                             android:layout_width="282dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/TimeOfRestBetweenSetTextView" />
+                            android:layout_weight="1" />
 
                         <Button
                             android:id="@+id/TimeOfRestBetweenSetButtonPlus"

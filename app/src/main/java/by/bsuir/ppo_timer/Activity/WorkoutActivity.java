@@ -6,16 +6,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-
-import com.divyanshu.colorseekbar.ColorSeekBar;
 
 import by.bsuir.ppo_timer.Model.Workout;
 import by.bsuir.ppo_timer.R;
@@ -36,18 +34,17 @@ public class WorkoutActivity extends AppCompatActivity {
 
     CreateWorkoutViewModel createWorkoutViewModel;
     DBViewModel mViewModel;
-//    ColorSeekBar colorSeekBar;
     HSLColorPickerSeekBar seekBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         setContentView(R.layout.activity_workout);
+
         mViewModel = ViewModelProviders.of(this).get(DBViewModel.class);
         createWorkoutViewModel = ViewModelProviders.of(this).get(CreateWorkoutViewModel.class);
         ActionBar actionBar = getSupportActionBar();
         seekBar = (HSLColorPickerSeekBar) findViewById(R.id.hueSeekBar);
-//        colorSeekBar = findViewById(R.id.color_seekBar);
+
         ((EditText) findViewById(R.id.NameTextViewEditText)).setOnEditorActionListener((v, actionId, event) -> {
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -75,35 +72,28 @@ public class WorkoutActivity extends AppCompatActivity {
         findViewById(R.id.CycleButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFCYCLE));
         findViewById(R.id.SetButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(COUNTOFSETS));
         findViewById(R.id.TimeOfRestBetweenSetButtonPlus).setOnClickListener(item -> createWorkoutViewModel.increment(TIMEOFRESTBETWEENSET));
-        findViewById(R.id.TimeOfFinalRestButtonPlus).setOnClickListener(item -> {createWorkoutViewModel.increment(TIMEOFFINALREST);createWorkoutViewModel.setColor(seekBar.getProgress());});
-//        colorSeekBar.setOnColorChangeListener(i -> createWorkoutViewModel.setColor(i));
-//        seekBar.setOnClickListener(v -> {
-//            IntegerHSLColor ii = seekBar.getPickedColor();
-//            int c = Color.HSVToColor(new float[]{ii.getFloatH(),ii.getFloatL(),ii.getFloatS()});
-//            createWorkoutViewModel.setColor(c);
-//        });
+        findViewById(R.id.TimeOfFinalRestButtonPlus).setOnClickListener(item -> {
+            createWorkoutViewModel.increment(TIMEOFFINALREST);
+            createWorkoutViewModel.setColor(seekBar.getProgress());
+        });
 
-        createWorkoutViewModel.GetValue(TIMEOFPREPARATION).observe(this, value -> ((TextView) findViewById(R.id.PreparationTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(TIMEOFWORK).observe(this, value -> ((TextView) findViewById(R.id.WorkTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(TIMEOFREST).observe(this, value -> ((TextView) findViewById(R.id.RestTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(COUNTOFCYCLE).observe(this, value -> ((TextView) findViewById(R.id.CycleTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(COUNTOFSETS).observe(this, value -> ((TextView) findViewById(R.id.SetTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(TIMEOFRESTBETWEENSET).observe(this, value -> ((TextView) findViewById(R.id.TimeOfRestBetweenSetTextViewEditText)).setText(value));
-        createWorkoutViewModel.GetValue(TIMEOFFINALREST).observe(this, value -> ((TextView) findViewById(R.id.TimeOfFinalRestTextViewEditText)).setText(value));
-//        createWorkoutViewModel.getColor().observe(this, value -> actionBar.setBackgroundDrawable(new ColorDrawable(value)));
+        createWorkoutViewModel.GetValue(TIMEOFPREPARATION).observe(this, value -> ((TextView) findViewById(R.id.PreparationTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(TIMEOFWORK).observe(this, value -> ((TextView) findViewById(R.id.WorkTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(TIMEOFREST).observe(this, value -> ((TextView) findViewById(R.id.RestTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(COUNTOFCYCLE).observe(this, value -> ((TextView) findViewById(R.id.CycleTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(COUNTOFSETS).observe(this, value -> ((TextView) findViewById(R.id.SetTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(TIMEOFRESTBETWEENSET).observe(this, value -> ((TextView) findViewById(R.id.TimeOfRestBetweenSetTextViewEditText)).setText(String.valueOf(value)));
+        createWorkoutViewModel.GetValue(TIMEOFFINALREST).observe(this, value -> ((TextView) findViewById(R.id.TimeOfFinalRestTextViewEditText)).setText(String.valueOf(value)));
 
-        int status = intent.getIntExtra("actionObj",0);
+        int status = intent.getIntExtra("actionObj", 0);
+
         if (status != -1) {
+            ((Button)findViewById(R.id.CreateWorkoutButton)).setText(getResources().getString(R.string.Update));
             Workout workout = mViewModel.FindById(status);
-            createWorkoutViewModel.Initialize(workout);
-            createWorkoutViewModel.setName(workout.getName());
-            float[] hsv = new float[3];
-            Color.colorToHSV(workout.getColor(), hsv);
-            IntegerHSLColor integerHSLColor = new IntegerHSLColor();
-            integerHSLColor.setFloatH(hsv[0]);
-            integerHSLColor.setFloatL(hsv[1]);
-            integerHSLColor.setFloatS(hsv[2]);
-            seekBar.setPickedColor(integerHSLColor);
+            createWorkoutViewModel.Initialize(workout.getName(), workout.getTimeOfPreparation(), workout.getTimeOfWork(), workout.getTimeOfRest(),
+                    workout.getCountOfCycles(), workout.getCountOfSets(), workout.getTimeOfRestBetweenSet(),
+                    workout.getTimeOfFinalRest(), workout.getColor());
+            seekBar.setPickedColor(convertToIntegerHSLColor(workout.getColor()));
             actionBar.setBackgroundDrawable(new ColorDrawable(workout.getColor()));
             ((EditText) findViewById(R.id.NameTextViewEditText)).setText(workout.getName());
             actionBar.setTitle(workout.getName());
@@ -111,16 +101,35 @@ public class WorkoutActivity extends AppCompatActivity {
 
         findViewById(R.id.CreateWorkoutButton).setOnClickListener(item -> {
             IntegerHSLColor ii = seekBar.getPickedColor();
-            int c = Color.HSVToColor(new float[]{ii.getFloatH(),ii.getFloatL(),ii.getFloatS()});
+            int c = Color.HSVToColor(new float[]{ii.getFloatH(), ii.getFloatL(), ii.getFloatS()});
             createWorkoutViewModel.setColor(c);
             if (status == -1) {
-                mViewModel.AddFieldToDataBase(createWorkoutViewModel.getObject(0));
+                mViewModel.AddFieldToDataBase(createNewObject(status));
             } else {
-                mViewModel.UpdateField(createWorkoutViewModel.getObject(status));
+                mViewModel.UpdateField(createNewObject(status));
             }
             super.finish();
         });
         super.onCreate(savedInstanceState);
+    }
+
+
+    private Workout createNewObject(int id) {
+        return new Workout(id, createWorkoutViewModel.getName().getValue(), createWorkoutViewModel.GetValue(TIMEOFPREPARATION).getValue(),
+                createWorkoutViewModel.GetValue(TIMEOFWORK).getValue(), createWorkoutViewModel.GetValue(TIMEOFREST).getValue(),
+                createWorkoutViewModel.GetValue(COUNTOFCYCLE).getValue(), createWorkoutViewModel.GetValue(COUNTOFSETS).getValue(),
+                createWorkoutViewModel.GetValue(TIMEOFRESTBETWEENSET).getValue(), createWorkoutViewModel.GetValue(TIMEOFFINALREST).getValue(),
+                createWorkoutViewModel.getColor().getValue());
+    }
+
+    private IntegerHSLColor convertToIntegerHSLColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        IntegerHSLColor integerHSLColor = new IntegerHSLColor();
+        integerHSLColor.setFloatH(hsv[0]);
+        integerHSLColor.setFloatL(hsv[1]);
+        integerHSLColor.setFloatS(hsv[2]);
+        return integerHSLColor;
     }
 
 }

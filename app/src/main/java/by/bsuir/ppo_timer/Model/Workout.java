@@ -1,20 +1,18 @@
 package by.bsuir.ppo_timer.Model;
 
 public class Workout {
-    private int Id;
+    private final int Id;
     private String Name;
-    private String TimeOfPreparation;
-    private String TimeOfWork;
-    private String TimeOfRest;
-    private String CountOfCycles;
-    private String CountOfSets;
-    private String TimeOfRestBetweenSet;
-    private String TimeOfFinalRest;
-
-
+    private final int TimeOfPreparation;
+    private final int TimeOfWork;
+    private final int TimeOfRest;
+    private final int CountOfCycles;
+    private final int CountOfSets;
+    private final int TimeOfRestBetweenSet;
+    private final int TimeOfFinalRest;
     private int color;
 
-    public Workout(int id, String name, String timeOfPreparation, String timeOfWork, String timeOfRest, String countOfCycles, String countOfSets, String timeOfRestBetweenSet, String timeOfFinalRest, int color) {
+    public Workout(int id, String name, int timeOfPreparation, int timeOfWork, int timeOfRest, int countOfCycles, int countOfSets, int timeOfRestBetweenSet, int timeOfFinalRest, int color) {
         Id = id;
         Name = name;
         TimeOfPreparation = timeOfPreparation;
@@ -39,60 +37,32 @@ public class Workout {
         Name = name;
     }
 
-    public String getTimeOfPreparation() {
+    public int getTimeOfPreparation() {
         return TimeOfPreparation;
     }
 
-    public void setTimeOfPreparation(String timeOfPreparation) {
-        TimeOfPreparation = timeOfPreparation;
-    }
-
-    public String getTimeOfWork() {
+    public int getTimeOfWork() {
         return TimeOfWork;
     }
 
-    public void setTimeOfWork(String timeOfWork) {
-        TimeOfWork = timeOfWork;
-    }
-
-    public String getTimeOfRest() {
+    public int getTimeOfRest() {
         return TimeOfRest;
     }
 
-    public void setTimeOfRest(String timeOfRest) {
-        TimeOfRest = timeOfRest;
-    }
-
-    public String getCountOfCycles() {
+    public int getCountOfCycles() {
         return CountOfCycles;
     }
 
-    public void setCountOfCycles(String countOfCycles) {
-        CountOfCycles = countOfCycles;
-    }
-
-    public String getCountOfSets() {
+    public int getCountOfSets() {
         return CountOfSets;
     }
 
-    public void setCountOfSets(String countOfSets) {
-        CountOfSets = countOfSets;
-    }
-
-    public String getTimeOfRestBetweenSet() {
+    public int getTimeOfRestBetweenSet() {
         return TimeOfRestBetweenSet;
     }
 
-    public void setTimeOfRestBetweenSet(String timeOfRestBetweenSet) {
-        TimeOfRestBetweenSet = timeOfRestBetweenSet;
-    }
-
-    public String getTimeOfFinalRest() {
+    public int getTimeOfFinalRest() {
         return TimeOfFinalRest;
-    }
-
-    public void setTimeOfFinalRest(String timeOfFinalRest) {
-        TimeOfFinalRest = timeOfFinalRest;
     }
 
     public int getColor() {

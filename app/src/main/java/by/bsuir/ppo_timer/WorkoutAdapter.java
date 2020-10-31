@@ -31,28 +31,34 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         Workout workout = workouts.get(position);
         view.setBackgroundColor(workout.getColor());
         ((TextView) view.findViewById(R.id.Title)).setText(workout.getName());
-        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText(getContext().getResources().getString(R.string.Preparation) + " : " + workout.getTimeOfPreparation());
-        ((TextView) view.findViewById(R.id.TimeOfWork)).setText(getContext().getResources().getString(R.string.Work) + " : " + workout.getTimeOfWork());
-        ((TextView) view.findViewById(R.id.TimeOfRest)).setText(getContext().getResources().getString(R.string.Rest) + " : " + workout.getTimeOfRest());
-        ((TextView) view.findViewById(R.id.CountOfCycles)).setText(getContext().getResources().getString(R.string.Cycle) + " : " + workout.getCountOfCycles());
-
-        int time_cycle = Integer.parseInt(workout.getTimeOfPreparation());
-        for (int i = Integer.parseInt(workout.getCountOfSets()); i > 0; i--) {
-            for (int j = Integer.parseInt(workout.getCountOfCycles()); j > 0; j--) {
-                time_cycle += Integer.parseInt(workout.getTimeOfWork());
-                time_cycle += Integer.parseInt(workout.getTimeOfRest());
-            }
-            if (i != 1) {
-                time_cycle += Integer.parseInt(workout.getTimeOfRestBetweenSet());
-            }
-        }
-        time_cycle += Integer.parseInt(workout.getTimeOfFinalRest());
-
-
-        ((TextView) view.findViewById(R.id.TotalTime)).setText(getContext().getResources().getString(R.string.Totaltime) + " : " + String.valueOf(time_cycle));
+        ((TextView) view.findViewById(R.id.TimeOfPreparation)).setText(formatString(getContext().getResources().getString(R.string.Preparation), String.valueOf(workout.getTimeOfPreparation())));
+        ((TextView) view.findViewById(R.id.TimeOfWork)).setText(formatString(getContext().getResources().getString(R.string.Work), String.valueOf(workout.getTimeOfWork())));
+        ((TextView) view.findViewById(R.id.TimeOfRest)).setText(formatString(getContext().getResources().getString(R.string.Rest), String.valueOf(workout.getTimeOfRest())));
+        ((TextView) view.findViewById(R.id.CountOfCycles)).setText(formatString(getContext().getResources().getString(R.string.Cycle), String.valueOf(workout.getCountOfCycles())));
+        ((TextView) view.findViewById(R.id.TotalTime)).setText(formatString(getContext().getResources().getString(R.string.Totaltime), String.valueOf(getTotalTime(workout))));
         view.findViewById(R.id.buttonStart).setTag(workout.getId());
         view.findViewById(R.id.buttonEdit).setTag(workout.getId());
         view.findViewById(R.id.buttonDelete).setTag(workout.getId());
         return view;
+    }
+
+    private int getTotalTime(Workout workout) {
+        int totalTime = workout.getTimeOfPreparation();
+        for (int i = workout.getCountOfSets(); i > 0; i--) {
+            for (int j = workout.getCountOfCycles(); j > 0; j--) {
+                totalTime += workout.getTimeOfWork();
+                totalTime += workout.getTimeOfRest();
+            }
+            if (i != 1) {
+                totalTime += workout.getTimeOfRestBetweenSet();
+            }
+        }
+        totalTime += workout.getTimeOfFinalRest();
+        return totalTime;
+    }
+
+
+    private String formatString(String name, String time) {
+        return name + " : " + time;
     }
 }

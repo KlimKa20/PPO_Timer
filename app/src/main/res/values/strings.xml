@@ -2,21 +2,14 @@
     <string name="app_name">lab2 Timer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Preparation">Подготовка</string>
-    <string name="PreparationTextView">10</string>
     <string name="Name">Название</string>
     <string name="NameTextView">Введите имя</string>
     <string name="Work">Работа</string>
-    <string name="WorkTextView">20</string>
     <string name="Rest">Отдых</string>
-    <string name="RestTextView">20</string>
     <string name="Cycle">Циклы(работа и отдых)</string>
-    <string name="CycleTextView">1</string>
     <string name="Set">Сеты(повторить всё)</string>
-    <string name="SetTextView">1</string>
     <string name="TimeOfRestBetweenSet">Отдых между сетами</string>
-    <string name="TimeOfRestBetweenSetTextView">0</string>
     <string name="TimeOfFinalRest">Успокоиться</string>
-    <string name="TimeOfFinalRestTextView">5</string>
     <string name="CreateButton">Создать</string>
     <string name="Finish">Финиш</string>
     <string name="Totaltime">"Общее время"</string>
@@ -34,6 +27,10 @@
     <string name="DeleteAll">Удалить все </string>
     <string name="Start">Старт</string>
     <string name="Pause">Пауза</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
+    <string name="Exit">"Выход: Вы уверены?"</string>
+    <string name="Update">Обновить</string>
 
     <string-array name="text_lang">
         <item>Русский</item>

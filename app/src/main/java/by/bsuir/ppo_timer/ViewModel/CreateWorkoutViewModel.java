@@ -7,18 +7,22 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import by.bsuir.ppo_timer.Model.FieldType;
 import by.bsuir.ppo_timer.Model.Workout;
+import by.bsuir.ppo_timer.R;
 
 public class CreateWorkoutViewModel extends AndroidViewModel {
     private final MutableLiveData<String> Name = new MutableLiveData<>("");
-    private final MutableLiveData<String> TimeOfPreparation = new MutableLiveData<>("10");
-    private final MutableLiveData<String> TimeOfWork = new MutableLiveData<>("20");
-    private final MutableLiveData<String> TimeOfRest = new MutableLiveData<>("20");
-    private final MutableLiveData<String> CountOfCycles = new MutableLiveData<>("1");
-    private final MutableLiveData<String> CountOfSets = new MutableLiveData<>("1");
-    private final MutableLiveData<String> TimeOfRestBetweenSet = new MutableLiveData<>("0");
-    private final MutableLiveData<String> TimeOfFinalRest = new MutableLiveData<>("0");
+    private final MutableLiveData<Integer> TimeOfPreparation = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.PreparationTextView));
+    private final MutableLiveData<Integer> TimeOfWork = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.WorkTextView));
+    private final MutableLiveData<Integer> TimeOfRest = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.RestTextView));
+    private final MutableLiveData<Integer> CountOfCycles = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.CycleTextView));
+    private final MutableLiveData<Integer> CountOfSets = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.SetTextView));
+    private final MutableLiveData<Integer> TimeOfRestBetweenSet = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.TimeOfRestBetweenSetTextView));
+    private final MutableLiveData<Integer> TimeOfFinalRest = new MutableLiveData<>(getApplication().getResources().getInteger(R.integer.TimeOfFinalRestTextView));
     private final MutableLiveData<Integer> Color = new MutableLiveData<>(-16777216);
 
     public CreateWorkoutViewModel(@NonNull Application application) {
@@ -29,65 +33,79 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         Name.setValue(name);
     }
 
+    public LiveData<String> getName() {
+        return Name;
+    }
+
+
     public void increment(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
-                TimeOfPreparation.setValue(Integer.toString((Integer.parseInt(TimeOfPreparation.getValue())) + 1));
+                TimeOfPreparation.setValue(TimeOfPreparation.getValue() + 1);
                 break;
             case TIMEOFWORK:
-                TimeOfWork.setValue(Integer.toString((Integer.parseInt(TimeOfWork.getValue())) + 1));
+                TimeOfWork.setValue(TimeOfWork.getValue() + 1);
                 break;
             case TIMEOFREST:
-                TimeOfRest.setValue(Integer.toString((Integer.parseInt(TimeOfRest.getValue())) + 1));
+                TimeOfRest.setValue(TimeOfRest.getValue() + 1);
                 break;
             case COUNTOFCYCLE:
-                CountOfCycles.setValue(Integer.toString((Integer.parseInt(CountOfCycles.getValue())) + 1));
+                CountOfCycles.setValue(CountOfCycles.getValue() + 1);
                 break;
             case COUNTOFSETS:
-                CountOfSets.setValue(Integer.toString((Integer.parseInt(CountOfSets.getValue())) + 1));
+                CountOfSets.setValue(CountOfSets.getValue() + 1);
                 break;
             case TIMEOFRESTBETWEENSET:
-                TimeOfRestBetweenSet.setValue(Integer.toString((Integer.parseInt(TimeOfRestBetweenSet.getValue())) + 1));
+                TimeOfRestBetweenSet.setValue(TimeOfRestBetweenSet.getValue() + 1);
                 break;
             case TIMEOFFINALREST:
-                TimeOfFinalRest.setValue(Integer.toString((Integer.parseInt(TimeOfFinalRest.getValue())) + 1));
+                TimeOfFinalRest.setValue(TimeOfFinalRest.getValue() + 1);
                 break;
         }
     }
 
-    public void Initialize(Workout workout) {
-        TimeOfPreparation.setValue(workout.getTimeOfPreparation());
-        TimeOfWork.setValue(workout.getTimeOfWork());
-        TimeOfRest.setValue(workout.getTimeOfRest());
-        CountOfCycles.setValue(workout.getCountOfCycles());
-        CountOfSets.setValue(workout.getCountOfSets());
-        TimeOfRestBetweenSet.setValue(workout.getTimeOfRestBetweenSet());
-        TimeOfFinalRest.setValue(workout.getTimeOfFinalRest());
-        Color.setValue(workout.getColor());
+    public void Initialize(String Name ,int TimeOfPreparation,int TimeOfWork,int TimeOfRest,int CountOfCycles,int CountOfSets,int TimeOfRestBetweenSet,
+                           int TimeOfFinalRest,int Color) {
+        this.Name.setValue(Name);
+        this.TimeOfPreparation.setValue(TimeOfPreparation);
+        this.TimeOfWork.setValue(TimeOfWork);
+        this.TimeOfRest.setValue(TimeOfRest);
+        this.CountOfCycles.setValue(CountOfCycles);
+        this.CountOfSets.setValue(CountOfSets);
+        this.TimeOfRestBetweenSet.setValue(TimeOfRestBetweenSet);
+        this.TimeOfFinalRest.setValue(TimeOfFinalRest);
+        this.Color.setValue(Color);
     }
 
     public void decrement(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
-                TimeOfPreparation.setValue(Integer.toString((Integer.parseInt(TimeOfPreparation.getValue())) - 1));
+                if (TimeOfPreparation.getValue() != 0)
+                    TimeOfPreparation.setValue(TimeOfPreparation.getValue() - 1);
                 break;
             case TIMEOFWORK:
-                TimeOfWork.setValue(Integer.toString((Integer.parseInt(TimeOfWork.getValue())) - 1));
+                if (TimeOfWork.getValue() != 1)
+                    TimeOfWork.setValue(TimeOfWork.getValue() - 1);
                 break;
             case TIMEOFREST:
-                TimeOfRest.setValue(Integer.toString((Integer.parseInt(TimeOfRest.getValue())) - 1));
+                if (TimeOfRest.getValue() != 1)
+                    TimeOfRest.setValue(TimeOfRest.getValue() - 1);
                 break;
             case COUNTOFCYCLE:
-                CountOfCycles.setValue(Integer.toString((Integer.parseInt(CountOfCycles.getValue())) - 1));
+                if (CountOfCycles.getValue() != 1)
+                    CountOfCycles.setValue(CountOfCycles.getValue() - 1);
                 break;
             case COUNTOFSETS:
-                CountOfSets.setValue(Integer.toString((Integer.parseInt(CountOfSets.getValue())) - 1));
+                if (CountOfSets.getValue() != 1)
+                    CountOfSets.setValue(CountOfSets.getValue() - 1);
                 break;
             case TIMEOFRESTBETWEENSET:
-                TimeOfRestBetweenSet.setValue(Integer.toString((Integer.parseInt(TimeOfRestBetweenSet.getValue())) - 1));
+                if (TimeOfRestBetweenSet.getValue() != 0)
+                    TimeOfRestBetweenSet.setValue(TimeOfRestBetweenSet.getValue() - 1);
                 break;
             case TIMEOFFINALREST:
-                TimeOfFinalRest.setValue(Integer.toString((Integer.parseInt(TimeOfFinalRest.getValue())) - 1));
+                if (TimeOfFinalRest.getValue() != 0)
+                    TimeOfFinalRest.setValue(TimeOfFinalRest.getValue() - 1);
                 break;
         }
     }
@@ -100,7 +118,7 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
         return Color;
     }
 
-    public LiveData<String> GetValue(FieldType field) {
+    public LiveData<Integer> GetValue(FieldType field) {
         switch (field) {
             case TIMEOFPREPARATION:
                 return TimeOfPreparation;
@@ -119,9 +137,5 @@ public class CreateWorkoutViewModel extends AndroidViewModel {
             default:
                 return new MutableLiveData<>();
         }
-    }
-
-    public Workout getObject(int id) {
-        return new Workout(id, Name.getValue(), TimeOfPreparation.getValue(), TimeOfWork.getValue(), TimeOfRest.getValue(), CountOfCycles.getValue(), CountOfSets.getValue(), TimeOfRestBetweenSet.getValue(), TimeOfFinalRest.getValue(), Color.getValue());
     }
 }

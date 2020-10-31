@@ -2,21 +2,14 @@
     <string name="app_name">lab2 Timer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Preparation">Prepare</string>
-    <string name="PreparationTextView">10</string>
     <string name="Name">Name</string>
     <string name="NameTextView">Name</string>
     <string name="Work">Work</string>
-    <string name="WorkTextView">20</string>
     <string name="Rest">Rest</string>
-    <string name="RestTextView">20</string>
     <string name="Cycle">Cycle(Work and Rest)</string>
-    <string name="CycleTextView">1</string>
     <string name="Set">Sets(repeat all)</string>
-    <string name="SetTextView">1</string>
     <string name="TimeOfRestBetweenSet">Rest between sets</string>
-    <string name="TimeOfRestBetweenSetTextView">0</string>
     <string name="TimeOfFinalRest">Cool down</string>
-    <string name="TimeOfFinalRestTextView">5</string>
     <string name="CreateButton">Create</string>
     <string name="Finish">Finish</string>
     <string name="Totaltime">"Total time"</string>
@@ -34,7 +27,10 @@
     <string name="DeleteAll">Delete All</string>
     <string name="Start">Start</string>
     <string name="Pause">Pause</string>
-
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
+    <string name="Exit">"Exit: I you sure?"</string>
+    <string name="Update">Update</string>
     <string-array name="text_lang">
         <item>Russian</item>
         <item>English</item>

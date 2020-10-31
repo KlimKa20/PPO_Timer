@@ -53,11 +53,10 @@ public class Timer extends Service {
         if (scheduledFuture != null) {
             service.schedule(() -> {
                 scheduledFuture.cancel(true);
-                scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
-                ;
-            }, 990, TimeUnit.MILLISECONDS);
+                scheduledFuture = service.scheduleAtFixedRate(mr, 0, time + 1, TimeUnit.SECONDS);
+            }, 1000, TimeUnit.MILLISECONDS);
         } else {
-            scheduledFuture = service.scheduleAtFixedRate(mr, 0, time+1, TimeUnit.SECONDS);
+            scheduledFuture = service.scheduleAtFixedRate(mr, 0, time + 1, TimeUnit.SECONDS);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -94,15 +93,19 @@ public class Timer extends Service {
                     intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
                     sendBroadcast(intent);
                     TimeUnit.SECONDS.sleep(1);
-                    if (current_time <= 4) {
-                        if (current_time == 1)
-                            allertsignal();
-                        else
-                            signal();
-                    }
+                    bip(current_time);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+        }
+
+        void bip(int time) {
+            if (time <= 4) {
+                if (time == 1)
+                    allertsignal();
+                else
+                    signal();
             }
         }
 

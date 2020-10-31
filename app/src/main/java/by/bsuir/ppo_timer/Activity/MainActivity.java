@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 workoutList.setAdapter(workoutAdapter);
                 break;
             case R.id.buttonEdit:
-                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj", (int)v.getTag());
+                intent = new Intent(this, WorkoutActivity.class).putExtra("actionObj", (int) v.getTag());
                 startActivity(intent);
                 break;
         }
@@ -78,20 +78,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = new Intent(this, SettingActivity.class);
-        startActivityForResult(intent,REQUEST_ACCESS_TYPE);
+        startActivityForResult(intent, REQUEST_ACCESS_TYPE);
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode==REQUEST_ACCESS_TYPE){
-            if(resultCode==RESULT_OK){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ACCESS_TYPE) {
+            if (resultCode == RESULT_OK) {
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
             }
-        }
-        else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
