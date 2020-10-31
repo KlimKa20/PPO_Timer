@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="PreparationTextView">10</integer>
+    <integer name="WorkTextView">20</integer>
+    <integer name="RestTextView">20</integer>
+    <integer name="CycleTextView">1</integer>
+    <integer name="SetTextView">1</integer>
+    <integer name="TimeOfRestBetweenSetTextView">5</integer>
+    <integer name="TimeOfFinalRestTextView">5</integer>
+</resources>
