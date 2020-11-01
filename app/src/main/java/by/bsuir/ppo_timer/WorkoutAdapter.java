@@ -13,9 +13,9 @@ import by.bsuir.ppo_timer.Model.Workout;
 
 public class WorkoutAdapter extends ArrayAdapter<Workout> {
 
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Workout> workouts;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<Workout> workouts;
 
     public WorkoutAdapter(Context context, int resource, List<Workout> workouts) {
         super(context, resource, workouts);

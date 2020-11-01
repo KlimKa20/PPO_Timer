@@ -7,11 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import by.bsuir.ppo_timer.Model.FieldType;
-import by.bsuir.ppo_timer.Model.Workout;
 import by.bsuir.ppo_timer.R;
 
 public class CreateWorkoutViewModel extends AndroidViewModel {

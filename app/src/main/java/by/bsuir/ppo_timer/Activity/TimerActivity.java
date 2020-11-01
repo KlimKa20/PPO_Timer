@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
@@ -46,7 +47,6 @@ public class TimerActivity extends AppCompatActivity {
     boolean block = false;
     int element = 0;
     boolean check_last_sec = false;
-//    Boolean change_bool = false;
     String value_status_pause = "";
     String value_time_pause = "";
     int value_element_pause;
@@ -112,13 +112,13 @@ public class TimerActivity extends AppCompatActivity {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 for (int i = 0; i < visibleItemCount; i++) {
-                    lvSimple.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.itemrest));
+                    lvSimple.getChildAt(i).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.itemrest));
                 }
                 if (element >= firstVisibleItem && element < firstVisibleItem + visibleItemCount) {
                     if (!check_last_sec)
-                        lvSimple.getChildAt(element - firstVisibleItem).setBackgroundColor(getResources().getColor(R.color.green));
+                        lvSimple.getChildAt(element - firstVisibleItem).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
                     else
-                        lvSimple.getChildAt(element - 1 - firstVisibleItem).setBackgroundColor(getResources().getColor(R.color.green));
+                        lvSimple.getChildAt(element - 1 - firstVisibleItem).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
                 }
             }
         });
@@ -127,9 +127,9 @@ public class TimerActivity extends AppCompatActivity {
     public void workInProgress(String task){
         if (check_last_sec) {
             if (element != 0 && element - 1 - lvSimple.getFirstVisiblePosition() < 14 && element - 1 - lvSimple.getFirstVisiblePosition() >= 0 && element != 0)
-                lvSimple.getChildAt(element - lvSimple.getFirstVisiblePosition() - 1).setBackgroundColor(getResources().getColor(R.color.itemrest));
+                lvSimple.getChildAt(element - lvSimple.getFirstVisiblePosition() - 1).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.itemrest));
             if (element - lvSimple.getFirstVisiblePosition() < 14 && element - 1 - lvSimple.getFirstVisiblePosition() >= 0)
-                lvSimple.getChildAt(element - lvSimple.getFirstVisiblePosition()).setBackgroundColor(getResources().getColor(R.color.green));
+                lvSimple.getChildAt(element - lvSimple.getFirstVisiblePosition()).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
             check_last_sec = false;
         }
         value_status_pause = "";
@@ -158,10 +158,6 @@ public class TimerActivity extends AppCompatActivity {
                 element--;
             else
                 check_last_sec = false;
-//            if (!change_bool)
-//                element--;
-//            else
-//                change_bool = false;
             String[] words = adapter.getItem(element).split(" : ");
             value_status_pause = words[1];
         }
@@ -192,15 +188,15 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public String StringForTimer(int number, String name, Integer time) {
-        return number + " : " + name + " : " + String.valueOf(time);
+        return number + " : " + name + " : " + time;
     }
 
     public void ChangeFieldListView(View view, int position) {
         for (int i = 0; i < lvSimple.getLastVisiblePosition() - lvSimple.getFirstVisiblePosition() + 1; i++) {
-            lvSimple.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.itemrest));
+            lvSimple.getChildAt(i).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.itemrest));
         }
         element = position;
-        view.setBackgroundColor(getResources().getColor(R.color.green));
+        view.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
         stopService(new Intent(this, Timer.class));
 //        change_bool = true;
         String[] words = adapter.getItem(position).split(" : ");
@@ -231,9 +227,9 @@ public class TimerActivity extends AppCompatActivity {
                 check_last_sec = false;
                 stopService(new Intent(this, Timer.class));
                 AddNewService(getResources().getString(R.string.Preparation), String.valueOf(workout.getTimeOfPreparation()));
-                lvSimple.getChildAt(lvSimple.getLastVisiblePosition()).setBackgroundColor(getResources().getColor(R.color.itemrest));
+                lvSimple.getChildAt(lvSimple.getLastVisiblePosition()-lvSimple.getFirstVisiblePosition()).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.itemrest));
                 if (element >= lvSimple.getFirstVisiblePosition() && element <= lvSimple.getLastVisiblePosition())
-                    lvSimple.getChildAt(element).setBackgroundColor(getResources().getColor(R.color.green));
+                    lvSimple.getChildAt(element).setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.green));
             } else {
                 element = value_element_pause;
                 AddNewService(value_status_pause, value_time_pause);

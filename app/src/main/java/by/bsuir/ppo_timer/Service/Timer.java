@@ -2,7 +2,6 @@ package by.bsuir.ppo_timer.Service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.IBinder;
 
@@ -27,7 +26,9 @@ public class Timer extends Service {
 
     public void onCreate() {
         super.onCreate();
-        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(5)
+                .build();
         soundIdPip = soundPool.load(this, R.raw.censore_preview, 1);
         soundIdPipAlter = soundPool.load(this, R.raw.shot, 1);
         service = Executors.newScheduledThreadPool(1);
