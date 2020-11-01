@@ -38,7 +38,7 @@ public class Timer extends Service {
         service.shutdownNow();
         scheduledFuture.cancel(true);
         Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
-        intent.putExtra(TimerActivity.PARAM_PAUSE, "pause");
+        intent.putExtra(TimerActivity.PARAM_CURRENT_ACTION, "pause");
         intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
         intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
         sendBroadcast(intent);
@@ -82,20 +82,23 @@ public class Timer extends Service {
         public void run() {
             Intent intent = new Intent(TimerActivity.BROADCAST_ACTION);
             if (name.equals(getResources().getString(R.string.Finish))) {
-                intent.putExtra(TimerActivity.PARAM_PAUSE, "work");
+                intent.putExtra(TimerActivity.PARAM_CURRENT_ACTION, "work");
                 intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
                 intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, "");
                 sendBroadcast(intent);
             }
             try {
                 for (current_time = time; current_time > 0; current_time--) {
-                    intent.putExtra(TimerActivity.PARAM_PAUSE, "work");
+                    intent.putExtra(TimerActivity.PARAM_CURRENT_ACTION, "work");
                     intent.putExtra(TimerActivity.PARAM_NAME_ELEMENT, name);
                     intent.putExtra(TimerActivity.PARAM_TIME_ELEMENT, Integer.toString(current_time));
                     sendBroadcast(intent);
                     TimeUnit.SECONDS.sleep(1);
                     bip(current_time);
                 }
+                intent = new Intent(TimerActivity.BROADCAST_ACTION);
+                intent.putExtra(TimerActivity.PARAM_CURRENT_ACTION, "clear");
+                sendBroadcast(intent);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
