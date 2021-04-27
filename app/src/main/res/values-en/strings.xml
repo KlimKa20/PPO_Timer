@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">lab2 Timer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Preparation">Prepare</string>
+    <string name="Name">Name</string>
+    <string name="NameTextView">Name</string>
+    <string name="Work">Work</string>
+    <string name="Rest">Rest</string>
+    <string name="Cycle">Cycle(Work and Rest)</string>
+    <string name="Set">Sets(repeat all)</string>
+    <string name="TimeOfRestBetweenSet">Rest between sets</string>
+    <string name="TimeOfFinalRest">Cool down</string>
+    <string name="CreateButton">Create</string>
+    <string name="Finish">Finish</string>
+    <string name="Totaltime">"Total time"</string>
+    <string name="Preferences">Preferences</string>
+    <string name="Fontstyle">Font style</string>
+    <string name="Setsthefontstyle">Sets the font style</string>
+    <string name="Chooseafontstyle">Choose a font style</string>
+    <string name="Selectalanguage">Select a language</string>
+    <string name="Languageintheapp">Language in the app</string>
+    <string name="Language">Language</string>
+    <string name="Nighttheme">Night theme </string>
+    <string name="Turnon">Turn on</string>
+    <string name="Turnoff">Turn off</string>
+    <string name="Delete">Delete</string>
+    <string name="DeleteAll">Delete All</string>
+    <string name="Start">Start</string>
+    <string name="Pause">Pause</string>
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
+    <string name="Exit">"Exit: I you sure?"</string>
+    <string name="Update">Update</string>
+    <string-array name="text_lang">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="text_style">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Big</item>
+    </string-array>
+</resources>

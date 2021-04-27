@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="530dp"
+            android:layout_height="20dp"
+            android:text="Название" />
+
+        <Button
+            android:id="@+id/buttonStart"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/ic_media_play"
+            android:onClick="onClick" />
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/ic_menu_info_details"
+            android:onClick="onClick" />
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:background="@android:drawable/ic_menu_delete"
+            android:onClick="onClick" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/TimeOfPreparation"
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:text="Подготовка" />
+
+        <TextView
+            android:id="@+id/TimeOfWork"
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:text="Работа" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/CountOfCycles"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:text="Циклы" />
+
+        <TextView
+            android:id="@+id/TimeOfRest"
+            android:layout_width="251dp"
+            android:layout_height="wrap_content"
+            android:text="Отдых" />
+
+        <TextView
+            android:id="@+id/TotalTime"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Всего" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">PPO_Timer</string>
+    <string name="app_name">lab2 Timer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Preparation">Подготовка</string>
+    <string name="Name">Название</string>
+    <string name="NameTextView">Введите имя</string>
+    <string name="Work">Работа</string>
+    <string name="Rest">Отдых</string>
+    <string name="Cycle">Циклы(работа и отдых)</string>
+    <string name="Set">Сеты(повторить всё)</string>
+    <string name="TimeOfRestBetweenSet">Отдых между сетами</string>
+    <string name="TimeOfFinalRest">Успокоиться</string>
+    <string name="CreateButton">Создать</string>
+    <string name="Finish">Финиш</string>
+    <string name="Totaltime">"Общее время"</string>
+    <string name="Preferences">Свойства</string>
+    <string name="Fontstyle">Стиль для шрифта</string>
+    <string name="Setsthefontstyle">Устанавливает стиль для шрифта</string>
+    <string name="Chooseafontstyle">Выберите стиль для шрифта</string>
+    <string name="Selectalanguage">Выберите язык</string>
+    <string name="Languageintheapp">Язык в приложении</string>
+    <string name="Language">Язык</string>
+    <string name="Nighttheme">Ночная тема</string>
+    <string name="Turnon">Включить</string>
+    <string name="Turnoff">Включить</string>
+    <string name="Delete">Удалить</string>
+    <string name="DeleteAll">Удалить все </string>
+    <string name="Start">Старт</string>
+    <string name="Pause">Пауза</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
+    <string name="Exit">"Выход: Вы уверены?"</string>
+    <string name="Update">Обновить</string>
+
+    <string-array name="text_lang">
+        <item>Русский</item>
+        <item>Английский</item>
+    </string-array>
+    <string-array name="text_style">
+        <item>Малый</item>
+        <item>Нормальный</item>
+        <item>Большой</item>
+    </string-array>
 </resources>
